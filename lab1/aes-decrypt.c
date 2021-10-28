@@ -20,11 +20,11 @@ int main() {
 	msg_size = in_len = strlen((char *)ciphertext);
 	printf("Ciphertext = %s\n", ciphertext);
 	
-	EVP_DecodeBlock(decoded
+//	EVP_DecodeBlock(decoded
 	EVP_DecryptInit(ctx, EVP_aes_128_cbc(), key, iv);
 	EVP_DecryptUpdate(ctx, plaintext, &in_len, ciphertext, msg_size);
 	EVP_DecryptFinal(ctx, &plaintext[in_len], &in_len);
-	EVP_DecodeBlock(plaintext, plaintext, msg_size);
+//	EVP_DecodeBlock(plaintext, plaintext, msg_size);
 	printf("Decrypted plaintext = %s\n", plaintext);
 
 	EVP_CIPHER_CTX_cleanup(ctx);
