@@ -13,6 +13,7 @@ port number. Start the server program before starting the client.
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -68,7 +69,7 @@ int main(int argc, const char *argv[]) {
 	// Send data to the client
 	char *mesg = "Hello to client!";
 	send(newsock_fd, mesg, strlen(mesg), 0);
-	printf("Sent: \n\t%s = %d bytes\n", mesg, strlen(mesg));
+	printf("Sent: \n\t%s = %ld bytes\n", mesg, strlen(mesg));
 
 	// Read data from client
 	char buffer[BUF_SIZE];

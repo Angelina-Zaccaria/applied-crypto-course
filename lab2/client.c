@@ -16,6 +16,7 @@ this client program.
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -63,7 +64,7 @@ int main(int argc, const char *argv[]) {
 	// Write message to server
 	char *mesg = "Hello to server!";
 	send(client_fd, mesg, strlen(mesg), 0);
-	printf("Sent: \n\t%s = %d bytes\n", mesg, strlen(mesg));
+	printf("Sent: \n\t%s = %ld bytes\n", mesg, strlen(mesg));
 
 	// Close connection
 	close(client_fd);
