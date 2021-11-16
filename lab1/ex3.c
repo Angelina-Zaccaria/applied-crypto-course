@@ -1,5 +1,5 @@
 // Compile: gcc -g ex3.c -o ex3 -lcrypto
-// Run: ex3 username password
+// Run: ./ex3 username password
 
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
 	// Checking input values
 	if (argc != 3) {
 		printf("ERROR: Incorrect number of arguments\n");
-		printf("Usage: ex3 username password\n");
+		printf("Usage: ./ex3 username password\n");
 		return 0;
 	}
 
@@ -49,10 +49,10 @@ int main(int argc, char const *argv[]) {
 	unsigned char ciphertext[1024];
 	unsigned char cipherB64[1024]; 
 	int out_len, tmp;
-	EVP_CIPHER_CTX ctx;
-	EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);
-	EVP_EncryptUpdate(&ctx, ciphertext, &out_len, username, 16);
-	EVP_EncryptFinal(&ctx, &ciphertext[out_len], &tmp);
+	EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
+	EVP_EncryptInit(ctx, EVP_des_cbc(), key, iv);
+	EVP_EncryptUpdate(ctx, ciphertext, &out_len, username, 16);
+	EVP_EncryptFinal(ctx, &ciphertext[out_len], &tmp);
 	out_len += tmp;
 
 	// Compare to known ciphertexts
@@ -66,6 +66,6 @@ int main(int argc, char const *argv[]) {
 	else
 		printf("Error: Incorrect username and/or password.\n");
 
-	EVP_CIPHER_CTX_cleanup(&ctx);
+	EVP_CIPHER_CTX_cleanup(ctx);
 	return 0;
 }

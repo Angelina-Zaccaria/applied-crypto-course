@@ -1,5 +1,5 @@
 // Compile: gcc -g ex2.c -o ex2 -lcrypto
-// Run: ex2
+// Run: ./ex2
 
 #include <stdlib.h>
 #include <string.h>
@@ -19,7 +19,7 @@ int main() {
 	int in_len = strlen((char *) known);
 	int out_len, tmp, found = 0;
 
-	EVP_CIPHER_CTX ctx;
+	EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
 	int i, j, k;
 
 	// Iterate through all possible key values
@@ -30,8 +30,8 @@ int main() {
 			for (k = 0; k < 256; k++) {
 				key[15] = k;
 
-				EVP_EncryptInit(&ctx, EVP_aes_128_cbc(), key, iv);
-				EVP_EncryptUpdate(&ctx, ciphertext, &out_len, known, in_len);
+				EVP_EncryptInit(ctx, EVP_aes_128_cbc(), key, iv);
+				EVP_EncryptUpdate(ctx, ciphertext, &out_len, known, in_len);
 			// Don't do final encrypt because padding changes the ciphertext
 				unsigned char encoded[1024];
 				int enc_len = EVP_EncodeBlock(encoded, ciphertext, out_len);
@@ -43,12 +43,12 @@ int main() {
 				int comp = strncmp(cipherB64, encoded, enc_len-3);
 				if (comp == 0) {
 					found = 1;
-					EVP_CIPHER_CTX_cleanup(&ctx);
+					EVP_CIPHER_CTX_cleanup(ctx);
 					break;
 				}
 
 				// Clean up for next iteration
-				EVP_CIPHER_CTX_cleanup(&ctx);
+				EVP_CIPHER_CTX_cleanup(ctx);
 			}
 
 			if (found == 1)
@@ -72,15 +72,15 @@ int main() {
 			in_len -= in_len % 4;
 		out_len = 0;
 
-		EVP_DecryptInit(&ctx, EVP_aes_128_cbc(), key, iv);
-		EVP_DecryptUpdate(&ctx, plaintext, &out_len, decoded, in_len);
-		EVP_DecryptFinal(&ctx, plaintext + out_len, &tmp);
+		EVP_DecryptInit(ctx, EVP_aes_128_cbc(), key, iv);
+		EVP_DecryptUpdate(ctx, plaintext, &out_len, decoded, in_len);
+		EVP_DecryptFinal(ctx, plaintext + out_len, &tmp);
 		out_len += tmp;
 		plaintext[out_len] = '\0';
 
 		printf("\nThe plaintext is %s\n", plaintext);
 
-		EVP_CIPHER_CTX_cleanup(&ctx);
+		EVP_CIPHER_CTX_cleanup(ctx);
 	}
 	else
 		printf("No match found\n");

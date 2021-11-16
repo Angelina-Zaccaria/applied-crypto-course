@@ -1,5 +1,5 @@
 // Compile: gcc -g ex1.c -o ex1 -lcrypto
-// Run: ex1
+// Run: ./ex1
 
 #include <stdlib.h>
 #include <string.h>
@@ -24,14 +24,14 @@ int main() {
 	int out_len;
 
 	// Perform decryption
-	EVP_CIPHER_CTX ctx;
-	EVP_DecryptInit(&ctx, EVP_aes_128_cbc(), key, iv);
-	EVP_DecryptUpdate(&ctx, plaintext, &out_len, cipher, in_len);
-	EVP_DecryptFinal(&ctx, plaintext + out_len, &out_len);
+	EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
+	EVP_DecryptInit(ctx, EVP_aes_128_cbc(), key, iv);
+	EVP_DecryptUpdate(ctx, plaintext, &out_len, cipher, in_len);
+	EVP_DecryptFinal(ctx, plaintext + out_len, &out_len);
 
 	printf("\nThe plaintext is %s\n", plaintext);
 
 	// Clean up
-	EVP_CIPHER_CTX_cleanup(&ctx);
+	EVP_CIPHER_CTX_cleanup(ctx);
 	return 0;
 }
