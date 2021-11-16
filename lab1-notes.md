@@ -61,3 +61,6 @@ sudo apt-get install virtualbox-guest-additions-iso
 Part 3:
 - modified prog1.c so that it can work using OpenSSL 1.1.1 since breaking changes without backward compatibility support were introduced in 2018 in version 1.1.0
 - commented out line 22 because it's unnecessary, update line numbers if deleted
+
+Part 4:
+- having issues w type conversions in exercise 1 (aes-decrypt) but see prog3.c lines 26-30 for usage of EVP_EncodeBlock
