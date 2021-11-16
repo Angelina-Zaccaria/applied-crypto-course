@@ -2,6 +2,7 @@
 #include <string.h>
 #include <openssl/pem.h>
 #include <openssl/evp.h>
+#include <openssl/rsa.h>
 #include <openssl/err.h>
 int main() {
 
@@ -23,7 +24,7 @@ int main() {
     // Note that you can encrypt at most 117 bytes with RSA
     unsigned char plaintext[] = "The surprise party starts at 7.";
     printf("The plaintext is %s\n", plaintext);
-    int out_len, in_len = strlen((char *) plaintext);
+    size_t out_len, in_len = strlen((char *) plaintext);
 
     EVP_PKEY_CTX *ctx;
     ctx = EVP_PKEY_CTX_new(pub_key, NULL);
