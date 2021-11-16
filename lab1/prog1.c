@@ -30,3 +30,9 @@ int main() {
 	return 0;
 }
 
+/*
+ * To run:
+ * gcc -g prog1.c -o prog1 -lcrypto
+ * ./prog1
+ *
+ */
