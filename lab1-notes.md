@@ -30,7 +30,7 @@ Using -iter or -pbkdf2 would be better.
 ```
 
 ```
-installed vim
+installed vim with sudo apt install vim
 i to start writing
 esc, :w to save
 :wq to save and quit
@@ -44,17 +44,18 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 [hit enter 3x to use default location and empty passphrase]
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
-cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
 [copy/paste into SSH keys in github profile settings]
 ```
 //TODO: add commands for cloning repo/creating your own using this as starting point
 
 resize screen:
 ```
-[VirtualBox -> File -> Preferences -> Display, set maximum guest screen size to Hint, set width to 1920 and height to 1200]
+[VirtualBox -> Preferences -> Display, set maximum guest screen size to Hint, set width to 1920 and height to 1200]
+VM settings -> Display -> video memory to 128 MB and check Enable 3D Acceleration
 sudo apt-get install virtualbox-guest-additions-iso
 [restart]
-[VM -> View -> Virtual Screen 1 -> Resize to ...]
+[VM -> View -> Virtual Screen 1 -> Resize to ...] - if View tab isn't there go to the settings on the VM -> User Interface -> click on View tab so it's gray
 ```
 
 Part 3:
