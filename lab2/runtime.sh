@@ -8,7 +8,7 @@ do
 done
 
 # set up output file
-echo "Algorithm	Input	real	user	sys" > log.csv
+echo "Algorithm, Input, real, user, sys" > log.csv
 
 # algorithms=( "-aes-128-cbc" "-aes-256-cbc" "-des-ede-cbc" )
 algorithms=()
@@ -20,7 +20,7 @@ do
 	do
 		echo "ahh $alg"
 		# time openssl enc -e $alg -k "This's my key" -in $size.txt -out ciphertext.bin
-		/usr/bin/time -ao log.csv -f "$alg	$size	%e	%U	%S" openssl enc -e -$alg -k "This's my key" -in $size.txt -out ciphertext.bin >> log.csv
+		/usr/bin/time -ao log.csv -f "$alg, $size, %e, %U, %S" openssl enc -e -$alg -k "This's my key" -in $size.txt -out ciphertext.bin >> log.csv
 	done
 done
 
