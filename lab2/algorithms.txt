@@ -24,7 +24,7 @@ aria-256-cfb1
 aria-256-cfb8
 aria-256-ctr
 aria-256-ecb
-aria-256-of
+aria-256-ofb
 base64
 bf
 bf-cbc
