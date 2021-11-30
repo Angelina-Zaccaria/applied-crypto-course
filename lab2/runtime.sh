@@ -8,7 +8,8 @@ do
 done
 
 # set up output file
-echo "Algorithm, Msg size, Key size, real, user, sys" > log.csv
+echo "Encryption alg, Msg size, Key size, real, user, sys" > enc_log.csv
+echo "Signature alg, Msg size, real, user, sys" > enc_log.csv
 
 # algorithms=( "-aes-128-cbc" "-aes-256-cbc" "-des-ede-cbc" )
 algorithms=()
@@ -18,14 +19,19 @@ while read line; do digests+=($line); done < digests.txt
 
 for msg_size in "${sizes[@]}"
 do
-	for alg in "${algorithms[@]}"
+	for key_size in "${sizes[@]}"
 	do
-		for key_size in "${sizes[@]}"
+		for alg in "${algorithms[@]}"
 		do
 			echo "$alg msg:$msg_size key:$key_size"
-		# time openssl enc -e $alg -k "This's my key" -in $size.txt -out ciphertext.bin
-		/usr/bin/time -ao log.csv -f "$alg, $msg_size, $key_size, %e, %U, %S" openssl enc -e -$alg -k $key_size.txt -in $msg_size.txt -out ciphertext.bin >> log.csv
+			# time openssl enc -e $alg -k "This's my key" -in $size.txt -out ciphertext.bin
+			/usr/bin/time -ao enc_log.csv -f "$alg, $msg_size, $key_size, %e, %U, %S" openssl enc -e -$alg -k $key_size.txt -in $msg_size.txt -out ciphertext.bin
 		done
+	done
+	for dgst in "${digests[@]}"
+	do
+		echo "$dgst msg:$msg_size"
+		/usr/bin/time -ao sig_log.csv -f "$dgst, $msg_size, %e, %U, %S" openssl dgst -$dgst $msg_size.txt
 	done
 done
 
