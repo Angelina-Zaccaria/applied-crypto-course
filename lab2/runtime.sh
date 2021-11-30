@@ -9,7 +9,7 @@ done
 
 # set up output file
 echo "Encryption alg, Msg size, Key size, real, user, sys" > enc_log.csv
-echo "Signature alg, Msg size, real, user, sys" > enc_log.csv
+echo "Signature alg, Msg size, real, user, sys" > sig_log.csv
 
 # algorithms=( "-aes-128-cbc" "-aes-256-cbc" "-des-ede-cbc" )
 algorithms=()
