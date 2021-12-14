@@ -1,0 +1,5 @@
+openssl genpkey -algorithm RSA -out key1.pem
+cat key1.pem
+openssl pkey -in key1.pem -noout -text_pub
+openssl pkey -in key1.pem -pubout -out pub_key1.pem
+cat pub_key1.pem
