@@ -19,7 +19,6 @@ int main() {
 	printf("Ciphertext = %s\n", ciphertext);
 
 	memset(plaintext, 0, msg_size);
-//	printf("Plaintext = %s\n", plaintext);
 
 	EVP_DecryptInit(ctx, EVP_rc4(), key, iv);
 	EVP_DecryptUpdate(ctx, plaintext, &in_len, ciphertext, msg_size);
