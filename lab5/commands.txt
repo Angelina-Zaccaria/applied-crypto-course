@@ -3,3 +3,18 @@ cat key1.pem
 openssl pkey -in key1.pem -noout -text_pub
 openssl pkey -in key1.pem -pubout -out pub_key1.pem
 cat pub_key1.pem
+echo "Let's do cryptography" > plaintext.txt
+openssl pkeyutl -in plaintext.txt -encrypt -pubin -inkey pub_key1.pem -out cipher.bin
+cat cipher.bin
+openssl pkeyutl -in cipher.bin -decrypt -inkey key1.pem -out plaintext.dec
+cat plaintext.dec
+openssl genpkey -genparam -algorithm EC -out ecp.pem -pkeyopt ec_paramgen_curve:secp128r1
+cat ecp.pem
+openssl genpkey -paramfile ecp.pem -out key2.pem -aes-128-cbc -pass pass:hello
+cat key2.pem
+openssl pkey -in key2.pem
+openssl pkeyutl -in plaintext.txt -sign -inkey key2.pem -out sig1
+cat sig1
+openssl pkeyutl -verify -in plaintext.txt -sigfile sig1 -inkey key2.pem
+rm -v cipher.bin ecp.pem key1.pem key2.pem plaintext.dec plaintext.txt pub_key1.pem sig1
+
